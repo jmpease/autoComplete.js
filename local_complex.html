@@ -18,15 +18,18 @@
 			<h1>jQM Autocomplete</h1>
 			<div data-role="navbar">
 				<ul>
-					<a href="index.html" data-ajax="false">Remote Array</a>
-					<a href="complex.html" data-ajax="false">Remote Object</a>
-					<a href="array.html" data-ajax="false">Local Array</a>
-					<a href="local_complex.html" data-ajax="false" class="ui-btn-active">Local Object</a>
+					<a href="index.html" data-ajax="false">Remote [ ]</a>
+					<a href="complex.html" data-ajax="false">Remote { }</a>
+					<a href="array.html" data-ajax="false">Local [ ]</a>
+					<a href="local_complex.html" data-ajax="false" class="ui-btn-active">Local { }</a>
+					<a href="callback.html" data-ajax="false">Callback</a>
 				</ul>
 			</div>
 		</div>
 
 		<div data-role="content">
+
+			<h3>Local Complex Data</h3>
 
 			<p>
 				In this example autoComplete returns an array of objects from a local variable, each with a label and a value key.
@@ -67,7 +70,7 @@
 			$("#searchField").autocomplete({
 				target: $('#suggestions'),
 				source: autocompleteData,
-				link: 'testing.cfm?term=',
+				link: 'target.html?term=',
 				minLength: 1
 			});
 		});
