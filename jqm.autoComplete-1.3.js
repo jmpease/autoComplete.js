@@ -18,8 +18,7 @@
 		link: null,
 		minLength: 0,
 		transition: 'fade'
-	},
-	buildItems = function($this, data, settings) {
+	}, buildItems = function($this, data, settings) {
 		var str = [];
 		$.each(data, function(index, value) {
 			// are we working with objects or strings?
@@ -41,19 +40,16 @@
 		} else {
 			$this.trigger("targetCleared.autocomplete");
 		}
-	},
-	attachCallback = function(settings) {
-		$('li a', $(settings.target)).bind('click.autocomplete',function(e){
+	}, attachCallback = function(settings) {
+		$('li a', $(settings.target)).bind('click.autocomplete', function(e) {
 			e.stopPropagation();
 			e.preventDefault();
 			settings.callback(e);
 		});
-	},
-	clearTarget = function($this, $target) {
+	}, clearTarget = function($this, $target) {
 		$target.html('').listview('refresh');
 		$this.trigger("targetCleared.autocomplete");
-	},
-	handleInput = function(e) {
+	}, handleInput = function(e) {
 		var $this = $(this), text, data, settings = $this.jqmData("autocomplete");
 		if (settings) {
 			// get the current text of the input field
@@ -75,44 +71,45 @@
 					});
 					buildItems($this, data, settings);
 				} else {
-					$.get(settings.source, { term: text }, function(data) {
+					$.get(settings.source, {
+						term: text
+					}, function(data) {
 						buildItems($this, data, settings);
-					},"json");
+					}, "json");
 				}
 			}
 		}
-	},
-	methods = {
-			init: function(options) {
-				this.jqmData("autocomplete", $.extend({}, defaults, options));
-				return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
-			},
-			// Allow dynamic update of source and link
-			update: function(options) {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					this.jqmData("autocomplete", $.extend(settings, options));
-				}
-				return this;
-			},
-			// Method to forcibly clear our target
-			clear: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-				}
-				return this;
-			},
-			// Method to destroy (cleanup) plugin
-			destroy: function() {
-				var settings = this.jqmData("autocomplete");
-				if (settings) {
-					clearTarget(this, $(settings.target));
-					this.jqmRemoveData("autocomplete");
-					this.unbind(".autocomplete");
-				}
-				return this;
+	}, methods = {
+		init: function(options) {
+			this.jqmData("autocomplete", $.extend({}, defaults, options));
+			return this.unbind("input.autocomplete").bind("input.autocomplete", handleInput);
+		},
+		// Allow dynamic update of source and link
+		update: function(options) {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				this.jqmData("autocomplete", $.extend(settings, options));
 			}
+			return this;
+		},
+		// Method to forcibly clear our target
+		clear: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+			}
+			return this;
+		},
+		// Method to destroy (cleanup) plugin
+		destroy: function() {
+			var settings = this.jqmData("autocomplete");
+			if (settings) {
+				clearTarget(this, $(settings.target));
+				this.jqmRemoveData("autocomplete");
+				this.unbind(".autocomplete");
+			}
+			return this;
+		}
 	};
 
 	$.fn.autocomplete = function(method) {
